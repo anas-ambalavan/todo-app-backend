@@ -1,6 +1,6 @@
 # todo-app-backend
 
-> Backend for rn-todo-app
+> Backend for todo-app: https://github.com/anas-ambalavan/rn-todo-app
 
 ## Quick Start
 
