@@ -23,7 +23,7 @@ function verifyToken(req, res, next) {
 
     jwt.verify(bearerToken, process.env.SECRET_KEY, (err, authData) => {
       if (err || !authData) {
-        return res.status(401).json({ message: "Unauthorized" });
+        return res.status(401).json({ message: "Session Expired" });
       } else {
         // Set the userID
         req.userId = authData.insertedId;
@@ -56,7 +56,7 @@ router.post("/user/register", (req, res) => {
         jwt.sign(
           { insertedId },
           process.env.SECRET_KEY,
-          { expiresIn: "50d" },
+          { expiresIn: "60d" },
           (err, token) => {
             if (err) {
               console.log(err);
@@ -79,15 +79,16 @@ router.post("/user/login", (req, res) => {
   User.collection.findOne(
     { email: req.body.email, pass: req.body.pass },
     (err, user) => {
-      if (err && !user) {
-        console.log(err);
-        return res.status(400).json({ message: "Login failed" });
+      if (err || !user) {
+        console.log("err");
+        return res.status(400).json({ message: "Invalid Credentials" });
       } else {
+        // console.log(user);
         const insertedId = user._id;
         jwt.sign(
           { insertedId },
           process.env.SECRET_KEY,
-          { expiresIn: "50d" },
+          { expiresIn: "60d" },
           (err, token) => {
             if (err) {
               console.log(err);
