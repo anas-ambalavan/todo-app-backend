@@ -56,7 +56,7 @@ router.post("/user/register", (req, res) => {
         jwt.sign(
           { insertedId },
           process.env.SECRET_KEY,
-          { expiresIn: "10s" },
+          { expiresIn: "50d" },
           (err, token) => {
             if (err) {
               console.log(err);
@@ -87,7 +87,7 @@ router.post("/user/login", (req, res) => {
         jwt.sign(
           { insertedId },
           process.env.SECRET_KEY,
-          { expiresIn: "1d" },
+          { expiresIn: "50d" },
           (err, token) => {
             if (err) {
               console.log(err);
